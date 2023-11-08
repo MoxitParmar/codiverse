@@ -55,8 +55,8 @@ exports.passwordUpdated = (email, name) => {
     
     <body>
         <div class="container">
-            <a href="https://studynotion-edtech-project.vercel.app"><img class="logo"
-                    src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo"></a>
+        <a href="https://codiverse-sample.vercel.app/"><img class="logo" src="https://res.cloudinary.com/drbn3i1cy/image/upload/v1697978162/code/jhdwxegxbrm293lnxumy.png"
+        alt="Codiverse Logo"></a>
             <div class="message">Password Update Confirmation</div>
             <div class="body">
                 <p>Hey ${name},</p>
@@ -64,10 +64,8 @@ exports.passwordUpdated = (email, name) => {
                 </p>
                 <p>If you did not request this password change, please contact us immediately to secure your account.</p>
             </div>
-            <div class="support">If you have any questions or need further assistance, please feel free to reach out to us
-                at
-                <a href="mailto:info@studynotion.com">info@studynotion.com</a>. We are here to help!
-            </div>
+            <div class="support">If you have any questions or need assistance, please feel free to reach out to us at <a
+            href="mailto:info@codiverse.com">info@codiverse.com</a>. We are here to help!</div>
         </div>
     </body>
     
