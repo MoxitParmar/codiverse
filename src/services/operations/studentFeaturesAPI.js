@@ -27,7 +27,7 @@ function loadScript (src) {
 }
 
 
-export async function buyCourse (token, courses, userDetails, navigate, dispatch) {
+export async function buyCourse (token, courses, userDetails, navigate, dispatch, coupon = "") {
     // console.log("buyCourse -> courses",process.env.REACT_APP_BASE_URL)
     const toastId = toast.loading("Please wait while we redirect you to payment gateway", {
       position: "bottom-center",
@@ -39,8 +39,8 @@ export async function buyCourse (token, courses, userDetails, navigate, dispatch
         toast.error("Razorpay SDK failed to load. Are you online?");
         return;
         }
-    const orderResponse = await apiConnector("POST", COURSE_PAYMENT_API, {courses},{
-        Authorisation: `Bearer ${token}`,
+    const orderResponse = await apiConnector("POST", COURSE_PAYMENT_API, {courses, coupon},{
+        Authorization: `Bearer ${token}`,
     })
     if(!orderResponse.data.success){
         toast.error(orderResponse.data.message)
@@ -49,6 +49,15 @@ export async function buyCourse (token, courses, userDetails, navigate, dispatch
         return
     }
     console.log("buyCourse -> orderResponse", orderResponse)
+
+    if(orderResponse.data?.paymentMessage === "Course is free.") {
+        toast.success("Payment Successful");
+        navigate("/dashboard/enrolled-courses");
+        dispatch(resetCart());
+        toast.dismiss(toastId);
+        return;
+    }
+
     const options = {
         key: process.env.REACT_APP_RAZORPAY_KEY_ID,
         currency: orderResponse.data.currency,
@@ -98,7 +107,7 @@ async function sendPaymentSuccessEmail (response,amount,token) {
         paymentId:response.razorpay_payment_id,
         orderId:response.razorpay_order_id,
     }, {
-        Authorisation: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
     });
     if (!res.success) {
         console.log(res.message);
@@ -122,7 +131,7 @@ async function verifypament (response,courses,token,navigate,dispatch,) {
             razorpay_signature: response.razorpay_signature,
             courses:courses.courses || courses,
         }, {
-            Authorisation: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
         });
         console.log("verifypament -> res", res)
         if (!res.data.success) {

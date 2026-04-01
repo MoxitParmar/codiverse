@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { buyCourse } from '../../../../services/operations/studentFeaturesAPI';
 import IconBtn from '../../../common/IconBtn';
@@ -12,6 +12,7 @@ const RenderTotalAmount = () => {
     const {user} = useSelector((state) => state.profile);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [coupon, setCoupon] = useState("");
 
 
     const handleBuyCourse = () => {
@@ -19,7 +20,7 @@ const RenderTotalAmount = () => {
         // console.log("Bought these course:", courses);
         if(token){
           const courses = cart.map((course) => course._id);
-          buyCourse(token,courses,user,navigate,dispatch);
+          buyCourse(token,courses,user,navigate,dispatch, coupon);
       }
       else{
           navigate('/login');
@@ -30,6 +31,16 @@ const RenderTotalAmount = () => {
 
         <p className='mb-1 text-sm font-medium text-richblack-300'>Total:</p>
         <p className='mb-6 text-3xl font-medium text-yellow-100 crimson'>₹ {total}</p>
+
+        <div className="flex flex-col gap-3 mb-3">
+            <input 
+                type="text" 
+                placeholder="Coupon Code" 
+                value={coupon} 
+                onChange={(e) => setCoupon(e.target.value)}
+                className="form-style w-full"
+            />
+        </div>
 
         <IconBtn 
             text="Buy Now"

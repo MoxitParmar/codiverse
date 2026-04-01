@@ -16,9 +16,8 @@ const { cloudnairyconnect } = require("./config/cloudinary");
 
 const dotenv = require("dotenv");
 dotenv.config();
+const PORT = process.env.PORT || 5000;
 
-const PORT = 4000;
-database.connect();
 
 app.use(express.json());
 app.use(cookieParser());
@@ -57,5 +56,6 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
+  database.connect();
   console.log(`Server is running on port ${PORT}`);
 });

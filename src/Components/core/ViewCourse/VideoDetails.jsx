@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { ControlBar, Player } from 'video-react';
-// import '~video-react/dist/video-react.css'; // import css
-import { BigPlayButton, LoadingSpinner, PlaybackRateMenuButton, ForwardControl, ReplayControl, CurrentTimeDisplay, TimeDivider } from 'video-react';
+import 'video-react/dist/video-react.css'; // import css
+import { BigPlayButton, LoadingSpinner, PlaybackRateMenuButton, ForwardControl, ReplayControl, CurrentTimeDisplay, TimeDivider, DurationDisplay, ProgressControl } from 'video-react';
 import {BiSkipPreviousCircle} from 'react-icons/bi';
 import {BiSkipNextCircle} from 'react-icons/bi';
 import {MdOutlineReplayCircleFilled} from 'react-icons/md';
@@ -127,19 +127,25 @@ const VideoDetails = () => {
               aspectRatio="16:9"
               fluid={true}
               autoPlay={false}
-              onEnded={() => setVideoEnd(true)}
+              onEnded={() => {
+                setVideoEnd(true);
+                if (!completedLectures.includes(videoData._id)) {
+                  handleLectureCompletion();
+                }
+              }}
             >
               
               <BigPlayButton position="center" />
 
               <LoadingSpinner />
               <ControlBar>
-              <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} order={7.1} />
-              <ReplayControl seconds={5} order={7.1} />
-              <ForwardControl seconds={5} order={7.2} />
-              <TimeDivider order={4.2} />
-              <CurrentTimeDisplay order={4.1} />
-              <TimeDivider order={4.2} />
+                <ReplayControl seconds={10} order={1.1} />
+                <ForwardControl seconds={10} order={1.2} />
+                <CurrentTimeDisplay order={4.1} />
+                <TimeDivider order={4.2} />
+                <DurationDisplay order={4.3} />
+                <ProgressControl order={5.0} />
+                <PlaybackRateMenuButton rates={[2, 1.5, 1, 0.5]} order={7.1} />
               </ControlBar>
               {
                 videoEnd && (

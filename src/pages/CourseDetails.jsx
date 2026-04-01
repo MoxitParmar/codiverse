@@ -26,12 +26,13 @@ const CourseDetails = () => {
     const [courseDetail, setCourseDetail] = useState(null);
     const [avgReviewCount, setAvgReviewCount] = useState(0);
     const [alreadyEnrolled, setAlreadyEnrolled] = useState(false);
+    const [coupon, setCoupon] = useState("");
     const {cart}=useSelector((state)=>state.cart);
 
 
     const handelPayment = () => {
         if(token){
-            buyCourse(token,[courseId],user,navigate,dispatch);
+            buyCourse(token,[courseId],user,navigate,dispatch, coupon);
         }
         else{
             navigate('/login');
@@ -125,7 +126,17 @@ const CourseDetails = () => {
                             {ACCOUNT_TYPE.INSTRUCTOR !==user?.accountType &&
                             <>
                             {
-                                alreadyEnrolled ? <button onClick={()=>{navigate("/dashboard/enrolled-courses")}}  className='yellowButton'>Go to Course</button> : <button onClick={handelPayment} className='yellowButton'>Buy Now</button>
+                                alreadyEnrolled ? <button onClick={()=>{navigate("/dashboard/enrolled-courses")}}  className='yellowButton'>Go to Course</button> : 
+                                <div className="flex flex-col gap-3">
+                                    <input 
+                                        type="text" 
+                                        placeholder="Coupon Code" 
+                                        value={coupon} 
+                                        onChange={(e) => setCoupon(e.target.value)}
+                                        className="form-style w-full"
+                                    />
+                                    <button onClick={handelPayment} className='yellowButton'>Buy Now</button>
+                                </div>
                             }
                             {
                                 alreadyEnrolled ? (<div></div>) : 
@@ -150,7 +161,17 @@ const CourseDetails = () => {
                                 {ACCOUNT_TYPE.INSTRUCTOR !==user?.accountType &&
                                 <>
                                 {
-                                    alreadyEnrolled ? <button onClick={()=>{navigate("/dashboard/enrolled-courses")}} className='yellowButton'>Go to Course</button> : <button onClick={handelPayment} className='yellowButton'>Buy Now</button>
+                                    alreadyEnrolled ? <button onClick={()=>{navigate("/dashboard/enrolled-courses")}} className='yellowButton'>Go to Course</button> : 
+                                    <div className="flex flex-col gap-3">
+                                        <input 
+                                            type="text" 
+                                            placeholder="Coupon Code" 
+                                            value={coupon} 
+                                            onChange={(e) => setCoupon(e.target.value)}
+                                            className="form-style w-full"
+                                        />
+                                        <button onClick={handelPayment} className='yellowButton'>Buy Now</button>
+                                    </div>
                                 }
                                 {
                                 alreadyEnrolled ? (<div></div>) : 
