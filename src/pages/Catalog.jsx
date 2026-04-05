@@ -19,7 +19,7 @@ const Catalog = () => {
   const dispatch = useDispatch();
 
 
-  const fetchSublinks=  async ()=>{
+  const fetchSublinks=  React.useCallback(async ()=>{
     try {
         const result = await apiConnector("GET",categories.CATEGORIES_API);
         const category_id= result.data.data.filter((item)=>item.name=== Catalog.catalog)[0]._id;
@@ -31,10 +31,10 @@ const Catalog = () => {
         console.log("could not fetch sublinks");
         console.log(error);
     }
-}
+}, [Catalog.catalog])
 useEffect(() => {
     fetchSublinks();
-}, [Catalog])
+}, [fetchSublinks])
 
 useEffect(() => {
     const fetchCatalogPageData = async () => {
@@ -47,7 +47,7 @@ useEffect(() => {
     if (categoryID) {
         fetchCatalogPageData();
     }
-}, [categoryID])
+}, [categoryID, dispatch])
 
 
   return (
