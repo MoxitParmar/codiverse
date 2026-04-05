@@ -23,9 +23,9 @@ const About = () => {
             </header>
             <div className='sm:h-[70px] lg:h-[150px]'></div>
             <div className='absolute bottom-0 left-[50%] grid w-[100%] translate-x-[-50%] translate-y-[30%] grid-cols-3 gap-3 lg:gap-5'>
-                <img src={BannerImage1} />
-                <img src={BannerImage2} />
-                <img src={BannerImage3} />
+                <img src={BannerImage1} alt="About us banner 1" />
+                <img src={BannerImage2} alt="About us banner 2" />
+                <img src={BannerImage3} alt="About us banner 3" />
             </div>
         </div>
       </section>
@@ -56,7 +56,7 @@ const About = () => {
                 </div>
                 {/* foudning story right box */}
                 <div>
-                    <img className='shadow-[0_0_20px_0] shadow-[#FC6767]'  src={FoundingStory} />
+                    <img className='shadow-[0_0_20px_0] shadow-[#FC6767]'  src={FoundingStory} alt="Founding Story" />
                 </div>
             </div>
 
