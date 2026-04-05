@@ -19,6 +19,7 @@ import RatingSlider from '../Components/core/Ratings/RatingSlider';
 
 
 function Home() {
+    const dispatch = useDispatch();
     const [CatalogPageData, setCatalogPageData] = useState(null);
     const categoryID = "6475dbeb49dcc886b5698441";
 
@@ -33,8 +34,7 @@ function Home() {
         if (categoryID) {
             fetchCatalogPageData();
         }
-    }, [categoryID])
-    const dispatch = useDispatch();
+    }, [categoryID, dispatch])
   return (
     <div>
         <div className=' mx-auto relative flex flex-col w-11/12 items-center justify-between text-white '>

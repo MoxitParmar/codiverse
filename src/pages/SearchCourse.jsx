@@ -14,17 +14,17 @@ const SearchCourse = () => {
     const [loading, setLoading] = useState(false);
     const distpatch= useDispatch();
     const {searchQuery}=useParams();
-    const fetchSearchResults= async ()=>{
+    const fetchSearchResults= React.useCallback(async ()=>{
         setLoading(true);
         const res = await searchCourses(searchQuery,distpatch);
         setSearchResults(res);
         setLoading(false);
         console.log(res);
-    }
+    }, [searchQuery, distpatch])
 
     useEffect(() => {
         fetchSearchResults();
-    }, [searchQuery])
+    }, [fetchSearchResults])
 
 
 
