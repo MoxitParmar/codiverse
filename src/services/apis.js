@@ -1,4 +1,4 @@
-const BASE_URL = "https://codiverse-back.onrender.com";
+const BASE_URL = "https://codiverse-back.onrender.com/api/v1";
 
 // AUTH ENDPOINTS
 export const endpoints = {
