@@ -1,4 +1,4 @@
-const BASE_URL = process.env.BASE_URL + "/api/v1";
+const BASE_URL = process.env.BASE_URL;
 
 // AUTH ENDPOINTS
 export const endpoints = {
