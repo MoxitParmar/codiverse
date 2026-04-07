@@ -38,11 +38,15 @@ const enrolleStudent = async (courses, userId) => {
         const userEmail = recipient.email;
         const userName = recipient.firstName + " " + recipient.lastName;
         const emailTemplate = courseEnrollmentEmail(courseName,userName, courseDescription, thumbnail);
-        await mailSender(
-            userEmail,
-            `You have successfully enrolled for ${courseName}`,
-            emailTemplate,
-        );
+        try {
+            await mailSender(
+                userEmail,
+                `You have successfully enrolled for ${courseName}`,
+                emailTemplate,
+            );
+        } catch (error) {
+            console.error("Error sending enrollment email:", error.message);
+        }
     }
 }
 
