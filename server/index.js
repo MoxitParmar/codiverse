@@ -20,6 +20,19 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cookieParser());
 
+app.use(async (req, res, next) => {
+  try {
+    await database.connect();
+    next();
+  } catch (error) {
+    console.error("Database connection failed", error);
+    return res.status(500).json({
+      success: false,
+      message: "Database connection failed. Please try again.",
+    });
+  }
+});
+
 app.use(
   fileUpload({
     useTempFiles: true,
@@ -45,7 +58,13 @@ app.get("/", (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  database.connect();
-  console.log(`Server is running on port ${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    database.connect().catch((error) => {
+      console.error("Database connection failed", error);
+    });
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
