@@ -57,10 +57,15 @@
 
       // Add event listener to the install button
       const installButton = document.getElementById("install-button");
-      installButton.addEventListener("click", function () {
-        showInstallPrompt();
-        document.getElementById("install-prompt").style.display = "none";
-      });
+      if (installButton) {
+        installButton.addEventListener("click", function () {
+          showInstallPrompt();
+          const installPrompt = document.getElementById("install-prompt");
+          if (installPrompt) {
+            installPrompt.style.display = "none";
+          }
+        });
+      }
 
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", function () {
@@ -91,13 +96,17 @@
           installPrompt.style.display = "block";
         });
       }
-      document
-        .getElementById("close-button")
-        .addEventListener("click", function () {
-          document.getElementById("install-prompt").style.display = "none";
+      const closeButton = document.getElementById("close-button");
+      if (closeButton) {
+        closeButton.addEventListener("click", function () {
+          const installPrompt = document.getElementById("install-prompt");
+          if (installPrompt) {
+            installPrompt.style.display = "none";
+          }
           //dont show install prompt again
           sessionStorage.setItem("installPrompt", "true");
         });
+      }
     </script>
   </body>
 </html>
