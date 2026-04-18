@@ -87,12 +87,15 @@
           if (sessionStorage.getItem("installPrompt") === "true") {
             return false;
           }
+          const installPrompt = document.getElementById("install-prompt");
+          if (!installPrompt) {
+            return;
+          }
           event.preventDefault(); // Prevent the default browser install prompt
 
           deferredPrompt = event; // Save the event for later use
 
           // Show the custom install prompt
-          const installPrompt = document.getElementById("install-prompt");
           installPrompt.style.display = "block";
         });
       }
