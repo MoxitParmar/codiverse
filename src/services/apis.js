@@ -1,4 +1,4 @@
-const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5001/api/v1";
+const BASE_URL = "/api/v1";
 
 // AUTH ENDPOINTS
 export const endpoints = {
