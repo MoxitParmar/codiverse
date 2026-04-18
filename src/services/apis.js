@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5001/api/v1";
+const BASE_URL = "https://codiverse-bj8f.vercel.app/api/v1";
 
 // AUTH ENDPOINTS
 export const endpoints = {
