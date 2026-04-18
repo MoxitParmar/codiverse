@@ -13,6 +13,8 @@ import { useDispatch } from 'react-redux';
 import { setProgress } from "../slices/loadingBarSlice"
 import { getCatalogaPageData } from '../services/operations/pageAndComponentData';
 import CourseSlider from '../Components/core/Catalog/CourseSlider';
+import { categories } from '../services/apis';
+import { apiConnector } from '../services/apiConnector';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import RatingSlider from '../Components/core/Ratings/RatingSlider';
@@ -21,20 +23,19 @@ import RatingSlider from '../Components/core/Ratings/RatingSlider';
 function Home() {
     const dispatch = useDispatch();
     const [CatalogPageData, setCatalogPageData] = useState(null);
-    const categoryID = "6475dbeb49dcc886b5698441";
 
     useEffect(() => {
         const fetchCatalogPageData = async () => {
-            
-                const result = await getCatalogaPageData(categoryID,dispatch);
+            const response = await apiConnector("GET", categories.CATEGORIES_API);
+            const firstCategoryId = response?.data?.data?.[0]?._id;
+
+            if (firstCategoryId) {
+                const result = await getCatalogaPageData(firstCategoryId, dispatch);
                 setCatalogPageData(result);
-                // console.log("page data",CatalogPageData);
-            
+            }
         }
-        if (categoryID) {
-            fetchCatalogPageData();
-        }
-    }, [categoryID, dispatch])
+        fetchCatalogPageData();
+    }, [dispatch])
   return (
     <div>
         <div className=' mx-auto relative flex flex-col w-11/12 items-center justify-between text-white '>
