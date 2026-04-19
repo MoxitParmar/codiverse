@@ -12,11 +12,13 @@ import "react-loading-skeleton/dist/skeleton.css";
 import CatalogCard from './CatalogCard'
 
 const CourseSlider = ({Courses}) => {
+  const hasCourses = Array.isArray(Courses) && Courses.length > 0
+  const isLoaded = Array.isArray(Courses)
     
   return (
     <>
         {
-            Courses?.length ? (
+            hasCourses ? (
                 <Swiper
                  mousewheel={
                       {
@@ -70,7 +72,11 @@ const CourseSlider = ({Courses}) => {
                     {/* <div className='swiper-button-next'></div> */}
                     {/* <div className='swiper-button-prev'></div> */}
                 </Swiper>
-            ) : (
+              ) : isLoaded ? (
+                <div className='flex min-h-[180px] items-center justify-center rounded-2xl border border-richblack-700 bg-richblack-800/60 px-6 py-10 text-center text-richblack-50'>
+                  <p className='text-base font-medium md:text-lg'>No courses available</p>
+                </div>
+              ) : (
                 <div className='flex gap-4 overflow-hidden'>
                 <SkeletonTheme baseColor="#2C333F" highlightColor="#161D29">
                 <div className=''>
